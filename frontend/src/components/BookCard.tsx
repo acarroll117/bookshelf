@@ -27,11 +27,16 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
 
   return (
     <div className="flex gap-4 items-start bg-white rounded-xl shadow-md p-4">
-      {/* Placeholder book cover */}
-      <div
-        className="w-40 h-56 bg-gray-200 flex-shrink-0"
-        aria-hidden="true"
-      />
+      {/* Book cover */}
+      {book.cover_url ? (
+        <img
+          src={book.cover_url}
+          alt={`Cover of ${book.title}`}
+          className="w-40 h-56 flex-shrink-0 object-contain"
+        />
+      ) : (
+        <div className="w-40 h-56 bg-gray-200 flex-shrink-0" aria-hidden="true" />
+      )}
 
       {/* Content column — fixed to image height when collapsed */}
       <div className={`flex-1 min-w-0 flex flex-col ${expanded ? "" : "h-56"}`}>
@@ -59,7 +64,7 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
         {isOverflowing && (
           <button
             onClick={() => setExpanded((e) => !e)}
-            className="mt-1 self-start flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600"
+            className="mt-1 self-start flex items-center gap-1 text-xs text-gray-500 hover:text-gray-800"
             aria-label={expanded ? "Collapse review" : "Expand review"}
           >
             <svg

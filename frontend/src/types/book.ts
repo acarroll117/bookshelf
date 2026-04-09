@@ -4,6 +4,7 @@ export interface Book {
   author: string | null;
   review: string | null;
   score: number | null;
+  cover_url: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -13,4 +14,5 @@ export interface BookPayload {
   author?: string;
   review?: string;
   score?: number;
+  cover_url?: string;
 }

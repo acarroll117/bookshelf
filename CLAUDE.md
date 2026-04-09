@@ -1,29 +1,3 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Architecture
-
-Full-stack bookshelf app: a **FastAPI** backend backed by **PostgreSQL**, and a **React + TypeScript + Tailwind** frontend built with Vite.
-
-### Backend (`backend/`)
-
-- `database.py` — SQLAlchemy engine/session wiring; reads `DATABASE_URL` from env via `python-dotenv`
-- `models.py` — SQLAlchemy ORM model (`Book` table with UUID PK, title, author, review, score, timestamps)
-- `schemas.py` — Pydantic schemas (`BookCreate`, `BookUpdate`, `BookOut`); score is validated to 1–10
-- `main.py` — FastAPI app; full CRUD on `/books`; tables are **not** created automatically — they must exist in the DB
-
-There is no migration tool (e.g. Alembic). Schema changes must be applied manually to the database.
-
-### Frontend (`src/`)
-
-- `types/book.ts` — TypeScript interfaces (`Book`, `BookPayload`)
-- `api/books.ts` — thin `fetch`-based API client; all calls go to `/api/books` (proxied by Vite)
-- `components/` — `BookList`, `BookCard`, `BookForm`
-- `App.tsx` — root component; owns all state (book list, editing state, form visibility)
-
-Vite dev server proxies `/api → http://localhost:8000` (stripping the `/api` prefix), so the backend must be running on port 8000 during development.
-
 ## Development Commands
 
 ### Backend

@@ -53,3 +53,8 @@ Backend requires a `.env` file in `backend/` with:
 ```
 DATABASE_URL=postgresql://user:password@host:5432/postgres
 ```
+
+## Plan Mode
+
+- Make the plan extremely concise. Sacrifice grammar for the sake of concision.
+- At the end of each plan, give me a list of unresolved questions to answer, if any.

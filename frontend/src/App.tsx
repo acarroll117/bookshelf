@@ -3,14 +3,20 @@ import type { Book, BookPayload } from "./types/book";
 import { getBooks, createBook, updateBook, deleteBook } from "./api/books";
 import BookList from "./components/BookList";
 import BookForm from "./components/BookForm";
+import ConfirmModal from "./components/ConfirmModal";
 
 export default function App() {
   const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
-    getBooks().then(setBooks).catch(console.error);
+    getBooks()
+      .then(setBooks)
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
   function openAdd() {
@@ -38,16 +44,22 @@ export default function App() {
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Delete this book?")) return;
-    await deleteBook(id);
-    setBooks((prev) => prev.filter((b) => b.id !== id));
+  function handleDelete(id: string) {
+    setConfirmDeleteId(id);
+  }
+
+  async function confirmDelete() {
+    if (!confirmDeleteId) return;
+    await deleteBook(confirmDeleteId);
+    setBooks((prev) => prev.filter((b) => b.id !== confirmDeleteId));
+    setConfirmDeleteId(null);
   }
 
   return (
     <>
       <BookList
         books={books}
+        loading={loading}
         onAdd={openAdd}
         onEdit={openEdit}
         onDelete={handleDelete}
@@ -57,6 +69,13 @@ export default function App() {
           book={editingBook ?? undefined}
           onSave={handleSave}
           onClose={closeForm}
+        />
+      )}
+      {confirmDeleteId && (
+        <ConfirmModal
+          message="Are you sure you want to delete this book?"
+          onConfirm={confirmDelete}
+          onCancel={() => setConfirmDeleteId(null)}
         />
       )}
     </>

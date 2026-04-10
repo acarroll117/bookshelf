@@ -13,6 +13,9 @@ interface BookSuggestion {
   coverUrl: string;
 }
 
+const hatchBg =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 8L8 0' stroke='%23d1d5db' stroke-width='1'/%3E%3C/svg%3E\")";
+
 async function searchBooks(query: string): Promise<BookSuggestion[]> {
   const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(query)}&limit=5&fields=title,author_name,cover_i`;
   const res = await fetch(url);
@@ -123,7 +126,6 @@ export default function BookForm({ book, onSave, onClose }: Props) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
         <h2 className="mb-4 text-lg font-semibold text-gray-800">
@@ -166,7 +168,15 @@ export default function BookForm({ book, onSave, onClose }: Props) {
                         {s.coverUrl ? (
                           <img src={s.coverUrl} alt="" className="h-20 w-14 flex-shrink-0 object-cover" />
                         ) : (
-                          <div className="h-20 w-14 flex-shrink-0 bg-gray-200" />
+                          <div
+                            className="h-20 w-14 flex-shrink-0 flex items-center justify-center bg-gray-100"
+                            style={{ backgroundImage: hatchBg }}
+                          >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                            </svg>
+                          </div>
                         )}
                         <div className="min-w-0">
                           <div className="truncate font-medium text-gray-800">{s.title}</div>
@@ -220,7 +230,7 @@ export default function BookForm({ book, onSave, onClose }: Props) {
             />
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          <p className="min-h-[1.25rem] text-sm text-red-600">{error}</p>
 
           <div className="flex justify-end gap-2 pt-1">
             <button

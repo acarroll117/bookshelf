@@ -8,7 +8,6 @@ export default function ConfirmModal({ message, onConfirm, onCancel }: Props) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-      onClick={(e) => e.target === e.currentTarget && onCancel()}
     >
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
         <p className="text-sm text-gray-700">{message}</p>

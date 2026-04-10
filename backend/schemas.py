@@ -4,34 +4,26 @@ from typing import Optional
 from pydantic import BaseModel, field_validator
 
 
-class BookCreate(BaseModel):
+class BookBase(BaseModel):
+    author: Optional[str] = None
+    review: Optional[str] = None
+    score: Optional[int] = None
+    cover_url: Optional[str] = None
+
+    @field_validator("score")
+    @classmethod
+    def score_range(cls, v: Optional[int]) -> Optional[int]:
+        if v is not None and not (1 <= v <= 10):
+            raise ValueError("score must be between 1 and 10")
+        return v
+
+
+class BookCreate(BookBase):
     title: str
-    author: Optional[str] = None
-    review: Optional[str] = None
-    score: Optional[int] = None
-    cover_url: Optional[str] = None
-
-    @field_validator("score")
-    @classmethod
-    def score_range(cls, v: Optional[int]) -> Optional[int]:
-        if v is not None and not (1 <= v <= 10):
-            raise ValueError("score must be between 1 and 10")
-        return v
 
 
-class BookUpdate(BaseModel):
+class BookUpdate(BookBase):
     title: Optional[str] = None
-    author: Optional[str] = None
-    review: Optional[str] = None
-    score: Optional[int] = None
-    cover_url: Optional[str] = None
-
-    @field_validator("score")
-    @classmethod
-    def score_range(cls, v: Optional[int]) -> Optional[int]:
-        if v is not None and not (1 <= v <= 10):
-            raise ValueError("score must be between 1 and 10")
-        return v
 
 
 class BookOut(BaseModel):

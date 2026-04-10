@@ -84,7 +84,7 @@ export default function BookList({ books, loading, onAdd, onEdit, onDelete }: Pr
           <button
             onClick={onAdd}
             aria-label="Add book"
-            className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-700 text-white hover:bg-gray-700 transition-colors"
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="12" y1="5" x2="12" y2="19" />

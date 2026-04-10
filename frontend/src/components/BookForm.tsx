@@ -94,6 +94,7 @@ export default function BookForm({ book, onSave, onClose }: Props) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
     if (!title.trim()) {
       setError("Title is required.");
       return;

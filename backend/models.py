@@ -16,5 +16,6 @@ class Book(Base):
     review: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     cover_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    pages: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

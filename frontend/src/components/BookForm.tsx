@@ -9,26 +9,30 @@ interface Props {
 
 interface BookSuggestion {
   title: string;
+  subtitle: string;
   author: string;
   coverUrl: string;
+  pages: number | null;
 }
 
 const hatchBg =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 8L8 0' stroke='%23d1d5db' stroke-width='1'/%3E%3C/svg%3E\")";
 
 async function searchBooks(query: string): Promise<BookSuggestion[]> {
-  const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(query)}&limit=5&fields=title,author_name,cover_i`;
+  const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(query)}&limit=5&fields=title,subtitle,author_name,cover_i,number_of_pages_median`;
   const res = await fetch(url);
   if (!res.ok) return [];
   const data = await res.json();
   if (!data.docs) return [];
   return (data.docs as unknown[])
     .map((doc) => {
-      const d = doc as { title?: string; author_name?: string[]; cover_i?: number };
+      const d = doc as { title?: string; subtitle?: string; author_name?: string[]; cover_i?: number; number_of_pages_median?: number };
       return {
         title: d.title ?? "",
+        subtitle: d.subtitle ?? "",
         author: d.author_name?.[0] ?? "",
         coverUrl: d.cover_i ? `https://covers.openlibrary.org/b/id/${d.cover_i}-M.jpg` : "",
+        pages: d.number_of_pages_median ?? null,
       };
     })
     .filter((s) => s.title);
@@ -40,6 +44,7 @@ export default function BookForm({ book, onSave, onClose }: Props) {
   const [coverUrl, setCoverUrl] = useState(book?.cover_url ?? "");
   const [score, setScore] = useState(book?.score?.toString() ?? "");
   const [review, setReview] = useState(book?.review ?? "");
+  const [pages, setPages] = useState<number | null>(book?.pages ?? null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [titleTouched, setTitleTouched] = useState(false);
@@ -87,9 +92,10 @@ export default function BookForm({ book, onSave, onClose }: Props) {
 
   function selectSuggestion(s: BookSuggestion) {
     setTitleTouched(false);
-    setTitle(s.title);
+    setTitle(s.subtitle ? `${s.title}: ${s.subtitle}` : s.title);
     setAuthor(s.author);
     setCoverUrl(s.coverUrl);
+    setPages(s.pages);
     setSuggestions([]);
     setShowSuggestions(false);
     setSearching(false);
@@ -115,6 +121,7 @@ export default function BookForm({ book, onSave, onClose }: Props) {
         review: review.trim() || undefined,
         score: scoreNum,
         cover_url: coverUrl || undefined,
+        pages: pages ?? undefined,
       });
       onClose();
     } catch {

@@ -9,6 +9,7 @@ class BookBase(BaseModel):
     review: Optional[str] = None
     score: Optional[int] = None
     cover_url: Optional[str] = None
+    pages: Optional[int] = None
 
     @field_validator("score")
     @classmethod
@@ -33,6 +34,7 @@ class BookOut(BaseModel):
     review: Optional[str]
     score: Optional[int]
     cover_url: Optional[str]
+    pages: Optional[int]
     created_at: datetime
     updated_at: datetime
 

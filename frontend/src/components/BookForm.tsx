@@ -134,14 +134,14 @@ export default function BookForm({ book, onSave, onClose }: Props) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
     >
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-        <h2 className="mb-4 text-lg font-semibold text-gray-800">
+      <div className="w-full max-w-md rounded-lg bg-white dark:bg-gray-800 p-6 shadow-xl">
+        <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">
           {book ? "Edit Book" : "Add Book"}
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
               Title <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -150,7 +150,7 @@ export default function BookForm({ book, onSave, onClose }: Props) {
                 value={title}
                 onChange={handleTitleChange}
                 onBlur={handleTitleBlur}
-                className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
+                className="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:border-gray-500 dark:focus:border-gray-400 focus:outline-none"
                 placeholder="e.g. The Hobbit"
                 autoComplete="off"
               />
@@ -163,12 +163,12 @@ export default function BookForm({ book, onSave, onClose }: Props) {
                 </div>
               )}
               {showSuggestions && (
-                <ul className="absolute z-10 mt-1 w-full overflow-auto rounded border border-gray-200 bg-white shadow-lg" style={{ maxHeight: "16rem", overscrollBehavior: "contain" }}>
+                <ul className="absolute z-10 mt-1 w-full overflow-auto rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 shadow-lg" style={{ maxHeight: "16rem", overscrollBehavior: "contain" }}>
                   {suggestions.map((s, i) => (
                     <li key={i}>
                       <button
                         type="button"
-                        className="flex w-full items-center gap-3 px-3 py-2 text-left text-sm hover:bg-gray-50"
+                        className="flex w-full items-center gap-3 px-3 py-2 text-left text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={() => selectSuggestion(s)}
                       >
@@ -176,7 +176,7 @@ export default function BookForm({ book, onSave, onClose }: Props) {
                           <img src={s.coverUrl} alt="" className="h-20 w-14 flex-shrink-0 object-cover" />
                         ) : (
                           <div
-                            className="h-20 w-14 flex-shrink-0 flex items-center justify-center bg-gray-100"
+                            className="h-20 w-14 flex-shrink-0 flex items-center justify-center bg-gray-100 dark:bg-gray-700"
                             style={{ backgroundImage: hatchBg }}
                           >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -186,8 +186,8 @@ export default function BookForm({ book, onSave, onClose }: Props) {
                           </div>
                         )}
                         <div className="min-w-0">
-                          <div className="truncate font-medium text-gray-800">{s.title}</div>
-                          {s.author && <div className="truncate text-xs text-gray-500">{s.author}</div>}
+                          <div className="truncate font-medium text-gray-800 dark:text-gray-100">{s.title}</div>
+                          {s.author && <div className="truncate text-xs text-gray-500 dark:text-gray-400">{s.author}</div>}
                         </div>
                       </button>
                     </li>
@@ -198,19 +198,19 @@ export default function BookForm({ book, onSave, onClose }: Props) {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
               Author
             </label>
             <input
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
-              className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
+              className="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:border-gray-500 dark:focus:border-gray-400 focus:outline-none"
               placeholder="e.g. J.R.R. Tolkien"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
               Score <span className="text-gray-400">(1–10)</span>
             </label>
             <input
@@ -219,20 +219,20 @@ export default function BookForm({ book, onSave, onClose }: Props) {
               max={10}
               value={score}
               onChange={(e) => setScore(e.target.value)}
-              className="w-24 rounded border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
+              className="w-24 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:border-gray-500 dark:focus:border-gray-400 focus:outline-none"
               placeholder="—"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
               Review
             </label>
             <textarea
               value={review}
               onChange={(e) => setReview(e.target.value)}
               rows={4}
-              className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
+              className="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:border-gray-500 dark:focus:border-gray-400 focus:outline-none"
               placeholder="Your thoughts on the book…"
             />
           </div>
@@ -243,14 +243,14 @@ export default function BookForm({ book, onSave, onClose }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="rounded px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"
+              className="rounded px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="rounded bg-gray-800 px-4 py-2 text-sm text-white hover:bg-gray-700 disabled:opacity-50"
+              className="rounded bg-gray-800 dark:bg-gray-600 px-4 py-2 text-sm text-white hover:bg-gray-700 dark:hover:bg-gray-500 disabled:opacity-50"
             >
               {saving ? "Saving…" : "Save"}
             </button>

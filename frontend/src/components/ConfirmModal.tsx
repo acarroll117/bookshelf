@@ -9,12 +9,12 @@ export default function ConfirmModal({ message, onConfirm, onCancel }: Props) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
     >
-      <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
-        <p className="text-sm text-gray-700">{message}</p>
+      <div className="w-full max-w-sm rounded-lg bg-white dark:bg-gray-800 p-6 shadow-xl">
+        <p className="text-sm text-gray-700 dark:text-gray-300">{message}</p>
         <div className="mt-5 flex justify-end gap-2">
           <button
             onClick={onCancel}
-            className="rounded px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"
+            className="rounded px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Cancel
           </button>

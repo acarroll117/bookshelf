@@ -11,6 +11,12 @@ export default function App() {
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
 
   useEffect(() => {
     getBooks()
@@ -63,6 +69,8 @@ export default function App() {
         onAdd={openAdd}
         onEdit={openEdit}
         onDelete={handleDelete}
+        dark={dark}
+        onToggleDark={() => setDark((d) => !d)}
       />
       {showForm && (
         <BookForm

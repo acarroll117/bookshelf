@@ -71,7 +71,7 @@ function EmptyState() {
         {/* Top shelf board */}
         <line x1="10" y1="12" x2="150" y2="12" />
       </svg>
-      <p className="mt-4 text-sm text-gray-400 dark:text-gray-500">No books yet. Add your first one!</p>
+      <p className="mt-4 text-md text-gray-400 dark:text-gray-500">Add your first book!</p>
     </div>
   );
 }

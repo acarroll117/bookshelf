@@ -254,7 +254,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
         <div className="flex justify-end gap-2 pt-1">
           <button
             type="button"
-            onClick={() => close()}
+            onClick={close}
             className="rounded px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Cancel

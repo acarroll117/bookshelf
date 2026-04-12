@@ -1,7 +1,7 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
-type CloseFn = (overrideCb?: () => void) => void;
+type CloseFn = () => void;
 
 const ModalContext = createContext<CloseFn>(() => {});
 
@@ -17,15 +17,21 @@ interface Props {
 
 export default function Modal({ onClose, maxWidth = "max-w-md", children }: Props) {
   const [visible, setVisible] = useState(false);
+  const cleanupRef = useRef<() => void>();
 
   useEffect(() => {
-    requestAnimationFrame(() => setVisible(true));
+    const frameId = requestAnimationFrame(() => setVisible(true));
+    return () => {
+      cancelAnimationFrame(frameId);
+      cleanupRef.current?.();
+    };
   }, []);
 
   const close = useCallback<CloseFn>(
-    (overrideCb) => {
+    () => {
       setVisible(false);
-      setTimeout(overrideCb ?? onClose, 200);
+      const timeoutId = setTimeout(onClose, 200);
+      cleanupRef.current = () => clearTimeout(timeoutId);
     },
     [onClose]
   );

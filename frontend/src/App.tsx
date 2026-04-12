@@ -58,7 +58,6 @@ export default function App() {
     if (!confirmDeleteId) return;
     await deleteBook(confirmDeleteId);
     setBooks((prev) => prev.filter((b) => b.id !== confirmDeleteId));
-    setConfirmDeleteId(null);
   }
 
   return (

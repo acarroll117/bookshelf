@@ -97,7 +97,8 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
         {/* Overflow container */}
         <div
           ref={overflowRef}
-          className={`relative ${expanded ? "" : "flex-1 overflow-hidden"}`}
+          onClick={isOverflowing ? () => setExpanded((e) => !e) : undefined}
+          className={`relative ${expanded ? "" : "flex-1 overflow-hidden"} ${isOverflowing ? "cursor-pointer" : ""}`}
         >
           <p className="font-semibold text-gray-900 dark:text-gray-100 leading-snug pr-14">{book.title}</p>
           {book.author && (

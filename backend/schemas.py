@@ -3,6 +3,8 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, field_validator
 
+VALID_SCORES = {i / 2 for i in range(1, 11)}
+
 
 class BookBase(BaseModel):
     author: Optional[str] = None
@@ -14,8 +16,7 @@ class BookBase(BaseModel):
     @field_validator("score")
     @classmethod
     def score_range(cls, v: Optional[float]) -> Optional[float]:
-        valid = {i / 2 for i in range(1, 11)}  # 0.5, 1.0, 1.5, ... 5.0
-        if v is not None and v not in valid:
+        if v is not None and v not in VALID_SCORES:
             raise ValueError("score must be a half-star increment between 0.5 and 5.0")
         return v
 

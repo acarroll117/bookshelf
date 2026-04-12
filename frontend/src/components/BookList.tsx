@@ -81,7 +81,7 @@ export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark
     <div className="min-h-screen flex flex-col">
       {/* Header bar */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="mx-auto max-w-2xl px-4 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Bookshelf</h1>
           <div className="flex items-center gap-2">
             <button
@@ -122,7 +122,7 @@ export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark
       </header>
 
       {/* Content */}
-      <main className="mx-auto w-full max-w-2xl px-4 py-8">
+      <main className="mx-auto w-full max-w-3xl px-4 py-8">
         {loading ? (
           <div className="space-y-4">
             <SkeletonCard />

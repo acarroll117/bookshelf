@@ -87,6 +87,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
     setTitleTouched(true);
+    if (error === "Title is required.") setError("");
   }
 
   function handleTitleBlur() {
@@ -208,15 +209,6 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
           />
         </div>
 
-        <div className="flex justify-center py-1">
-          <StarRating
-            value={score}
-            onChange={setScore}
-            size="md"
-            error={error === "Please select your star rating."}
-          />
-        </div>
-
         <div>
           <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Review
@@ -237,29 +229,39 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
                 });
               }
             }}
-            rows={4}
+            rows={8}
             className="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:border-gray-500 dark:focus:border-gray-400 focus:outline-none"
             placeholder="Your thoughts on the book…"
           />
         </div>
 
-        <p className="min-h-[1.25rem] text-sm text-red-600">{error}</p>
+        <div className="flex justify-center">
+          <StarRating
+            value={score}
+            onChange={(v) => { setScore(v); if (error === "Please select your star rating.") setError(""); }}
+            size="md"
+            error={error === "Please select your star rating."}
+          />
+        </div>
 
-        <div className="flex justify-end gap-2 pt-1">
-          <button
-            type="button"
-            onClick={close}
-            className="rounded px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            disabled={saving}
-            className="rounded bg-gray-800 dark:bg-gray-600 px-4 py-2 text-sm text-white hover:bg-gray-700 dark:hover:bg-gray-500 disabled:opacity-50"
-          >
-            {saving ? "Saving…" : "Save"}
-          </button>
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-sm text-red-600">{error}</p>
+          <div className="flex gap-2 flex-shrink-0">
+            <button
+              type="button"
+              onClick={close}
+              className="rounded px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="rounded bg-gray-800 dark:bg-gray-600 px-4 py-2 text-sm text-white hover:bg-gray-700 dark:hover:bg-gray-500 disabled:opacity-50"
+            >
+              {saving ? "Saving…" : "Save"}
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -268,7 +270,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
 
 export default function BookForm({ book, onSave, onClose }: Props) {
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onClose} maxWidth="max-w-xl">
       <BookFormContent book={book} onSave={onSave} />
     </Modal>
   );

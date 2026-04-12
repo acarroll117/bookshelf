@@ -11,7 +11,7 @@ export default function App() {
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
-  const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+  const [dark, setDark] = useState(() => localStorage.getItem("theme") !== "light");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);

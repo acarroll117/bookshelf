@@ -53,7 +53,7 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
   }, [expanded, book.review]);
 
   return (
-    <div className="flex gap-4 items-start bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+    <div className="flex gap-4 items-start bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-[0_4px_24px_rgba(99,102,241,0.1)] p-4">
       {/* Book cover */}
       {book.cover_url ? (
         <img

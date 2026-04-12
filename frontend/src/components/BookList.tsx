@@ -13,7 +13,7 @@ interface Props {
 
 function SkeletonCard() {
   return (
-    <div className="flex gap-4 items-start bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 animate-pulse">
+    <div className="flex gap-4 items-start bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-[0_4px_24px_rgba(99,102,241,0.1)] p-4 animate-pulse">
       <div className="w-40 h-56 flex-shrink-0 rounded-md bg-gray-200 dark:bg-gray-700" />
       <div className="flex-1 flex flex-col gap-3 pt-1">
         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />

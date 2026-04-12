@@ -14,7 +14,7 @@ export interface BookPayload {
   title: string;
   author?: string;
   review?: string;
-  score?: number;
+  score: number;
   cover_url?: string | null;
   pages?: number;
 }

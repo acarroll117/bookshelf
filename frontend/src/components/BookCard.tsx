@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Book } from "../types/book";
+import StarRating from "./StarRating";
 
 interface Props {
   book: Book;
@@ -132,20 +133,18 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
           </button>
         )}
 
-        {/* Score and pages — bottom right */}
+        {/* Stars and pages — bottom right */}
         <div className="mt-auto pt-3 flex-shrink-0 flex items-center justify-end gap-3">
+          <StarRating value={book.score} size="sm" />
           {book.pages != null && (
-            <span className="flex items-center gap-1 rounded bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs font-semibold text-gray-700 dark:text-gray-300">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <span className="flex items-center gap-1.5 rounded bg-gray-100 dark:bg-gray-700 px-3 py-1 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
               </svg>
               {book.pages}
             </span>
           )}
-          <span className="rounded bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs font-semibold text-gray-700 dark:text-gray-300">
-            {book.score != null ? `${book.score}/10` : "-/10"}
-          </span>
         </div>
       </div>
     </div>

@@ -7,15 +7,16 @@ from pydantic import BaseModel, field_validator
 class BookBase(BaseModel):
     author: Optional[str] = None
     review: Optional[str] = None
-    score: Optional[int] = None
+    score: Optional[float] = None
     cover_url: Optional[str] = None
     pages: Optional[int] = None
 
     @field_validator("score")
     @classmethod
-    def score_range(cls, v: Optional[int]) -> Optional[int]:
-        if v is not None and not (1 <= v <= 10):
-            raise ValueError("score must be between 1 and 10")
+    def score_range(cls, v: Optional[float]) -> Optional[float]:
+        valid = {i / 2 for i in range(1, 11)}  # 0.5, 1.0, 1.5, ... 5.0
+        if v is not None and v not in valid:
+            raise ValueError("score must be a half-star increment between 0.5 and 5.0")
         return v
 
 
@@ -32,7 +33,7 @@ class BookOut(BaseModel):
     title: str
     author: Optional[str]
     review: Optional[str]
-    score: Optional[int]
+    score: Optional[float]
     cover_url: Optional[str]
     pages: Optional[int]
     created_at: datetime

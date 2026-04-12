@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Book, BookPayload } from "../types/book";
 import Modal, { useModalClose } from "./Modal";
+import StarRating from "./StarRating";
 
 interface Props {
   book?: Book;
@@ -44,7 +45,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
   const [title, setTitle] = useState(book?.title ?? "");
   const [author, setAuthor] = useState(book?.author ?? "");
   const [coverUrl, setCoverUrl] = useState(book?.cover_url ?? "");
-  const [score, setScore] = useState(book?.score?.toString() ?? "");
+  const [score, setScore] = useState<number | null>(book?.score ?? null);
   const [review, setReview] = useState(book?.review ?? "");
   const [pages, setPages] = useState<number | null>(book?.pages ?? null);
   const [saving, setSaving] = useState(false);
@@ -110,9 +111,8 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
       setError("Title is required.");
       return;
     }
-    const scoreNum = score === "" ? undefined : Number(score);
-    if (scoreNum !== undefined && (scoreNum < 1 || scoreNum > 10)) {
-      setError("Score must be between 1 and 10.");
+    if (score === null) {
+      setError("Please select your star rating.");
       return;
     }
     setSaving(true);
@@ -121,7 +121,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
         title: title.trim(),
         author: author.trim() || undefined,
         review: review.replace(/^\n+|\n+$/g, "") || undefined,
-        score: scoreNum,
+        score,
         cover_url: coverUrl || null,
         pages: pages ?? undefined,
       });
@@ -208,18 +208,12 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
           />
         </div>
 
-        <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Score <span className="text-gray-400">(1–10)</span>
-          </label>
-          <input
-            type="number"
-            min={1}
-            max={10}
+        <div className="flex justify-center py-1">
+          <StarRating
             value={score}
-            onChange={(e) => setScore(e.target.value)}
-            className="w-24 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:border-gray-500 dark:focus:border-gray-400 focus:outline-none"
-            placeholder="—"
+            onChange={setScore}
+            size="md"
+            error={error === "Please select your star rating."}
           />
         </div>
 

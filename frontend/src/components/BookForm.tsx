@@ -122,7 +122,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
         author: author.trim() || undefined,
         review: review.replace(/^\n+|\n+$/g, "") || undefined,
         score: scoreNum,
-        cover_url: coverUrl || undefined,
+        cover_url: coverUrl || null,
         pages: pages ?? undefined,
       });
       close();

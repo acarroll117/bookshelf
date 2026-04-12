@@ -103,7 +103,7 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{book.author}</p>
           )}
           {book.review && (
-            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mt-2">{book.review}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mt-2 whitespace-pre-wrap">{book.review}</p>
           )}
 
           {!expanded && isOverflowing && (

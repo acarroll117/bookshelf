@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import type { Book } from "../types/book";
 import BookCard from "./BookCard";
+import YearNav from "./YearNav";
 
 interface Props {
   books: Book[];
@@ -77,11 +79,22 @@ function EmptyState() {
 }
 
 export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark, onToggleDark }: Props) {
+  const grouped = useMemo(() => {
+    const map = new Map<number, Book[]>();
+    for (const b of books) {
+      const yr = new Date(b.created_at).getFullYear();
+      const group = map.get(yr);
+      if (group) group.push(b);
+      else map.set(yr, [b]);
+    }
+    return [...map.entries()].sort((a, b) => b[0] - a[0]);
+  }, [books]);
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header bar */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Bookshelf</h1>
           <div className="flex items-center gap-2">
             <button
@@ -122,7 +135,7 @@ export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark
       </header>
 
       {/* Content */}
-      <main className="mx-auto w-full max-w-3xl px-4 py-8">
+      <main className="mx-auto w-full max-w-4xl px-4 py-8">
         {loading ? (
           <div className="space-y-4">
             <SkeletonCard />
@@ -132,15 +145,28 @@ export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark
         ) : books.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="space-y-4">
-            {books.map((book) => (
-              <BookCard
-                key={book.id}
-                book={book}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            ))}
+          <div className="flex gap-4">
+            <YearNav groups={grouped} />
+            <div className="flex-1 space-y-10">
+              {grouped.map(([year, bks]) => (
+                <section id={`year-${year}`} key={year} className="scroll-mt-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-wider">{year}</span>
+                    <div className="flex-1 h-px bg-gray-900 dark:bg-gray-100" />
+                  </div>
+                  <div className="space-y-4">
+                    {bks.map((book) => (
+                      <BookCard
+                        key={book.id}
+                        book={book}
+                        onEdit={onEdit}
+                        onDelete={onDelete}
+                      />
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
           </div>
         )}
       </main>

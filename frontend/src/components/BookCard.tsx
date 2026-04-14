@@ -60,6 +60,7 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
           src={book.cover_url}
           alt={`Cover of ${book.title}`}
           className="w-40 h-56 flex-shrink-0 object-contain"
+          loading="lazy"
         />
       ) : (
         <CoverPlaceholder />

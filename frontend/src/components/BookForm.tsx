@@ -179,7 +179,7 @@ function BookFormContent({ book, onSave }: Omit<Props, "onClose">) {
                           className="h-20 w-14 flex-shrink-0 flex items-center justify-center bg-gray-100 dark:bg-gray-700"
                           style={{ backgroundImage: hatchBg }}
                         >
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <svg className="relative" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
                             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
                           </svg>

@@ -24,9 +24,23 @@ class BookBase(BaseModel):
 class BookCreate(BookBase):
     title: str
 
+    @field_validator("title")
+    @classmethod
+    def title_not_blank(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("title cannot be blank")
+        return v
+
 
 class BookUpdate(BookBase):
     title: Optional[str] = None
+
+    @field_validator("title")
+    @classmethod
+    def title_not_blank(cls, v: Optional[str]) -> Optional[str]:
+        if v is not None and not v.strip():
+            raise ValueError("title cannot be blank")
+        return v
 
 
 class BookOut(BaseModel):

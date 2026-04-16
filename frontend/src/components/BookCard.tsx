@@ -49,7 +49,16 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
     if (expanded) return;
     const el = overflowRef.current;
     if (!el) return;
-    setIsOverflowing(el.scrollHeight > el.clientHeight);
+
+    const check = () => {
+      const next = el.scrollHeight > el.clientHeight;
+      setIsOverflowing((prev) => (prev === next ? prev : next));
+    };
+
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, [expanded, book.review]);
 
   return (
@@ -110,7 +119,7 @@ export default function BookCard({ book, onEdit, onDelete }: Props) {
           )}
 
           {!expanded && isOverflowing && (
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/60 dark:from-gray-800/60 to-transparent pointer-events-none" />
           )}
         </div>
 

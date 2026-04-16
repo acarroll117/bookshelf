@@ -48,7 +48,7 @@ export default function YearNav({ groups }: Props) {
   }
 
   return (
-    <nav className="hidden md:flex flex-col sticky top-8 self-start w-16 shrink-0 gap-0.5">
+    <nav className="hidden md:flex flex-col sticky top-8 self-start w-20 shrink-0 gap-0.5">
       {groups.map(([yr, bks]) => (
         <button
           key={yr}
@@ -59,8 +59,8 @@ export default function YearNav({ groups }: Props) {
               : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
           }`}
         >
-          <div className="text-lg leading-tight">{yr}</div>
-          <div className="text-base leading-tight opacity-70 text-center">{bks.length} 📚</div>
+          <div className="text-lg leading-tight">· {yr}</div>
+          <div className="text-base leading-tight opacity-70 text-center italic">{bks.length} 📚</div>
         </button>
       ))}
     </nav>

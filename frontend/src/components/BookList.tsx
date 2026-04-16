@@ -79,24 +79,36 @@ function EmptyState() {
 }
 
 export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark, onToggleDark }: Props) {
-  const grouped = useMemo(() => {
+  const { grouped, stats } = useMemo(() => {
     const map = new Map<number, Book[]>();
+    let totalPages = 0;
     for (const b of books) {
       const yr = new Date(b.created_at).getFullYear();
       const group = map.get(yr);
       if (group) group.push(b);
       else map.set(yr, [b]);
+      totalPages += b.pages ?? 0;
     }
-    return [...map.entries()].sort((a, b) => b[0] - a[0]);
+    const sorted = [...map.entries()].sort((a, b) => b[0] - a[0]);
+    return {
+      grouped: sorted,
+      stats: { totalBooks: books.length, totalYears: map.size, totalPages },
+    };
   }, [books]);
 
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header bar */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Bookshelf</h1>
-          <div className="flex items-center gap-2">
+        <div className="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between gap-4">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 shrink-0">Bookshelf</h1>
+          <div className="flex items-center gap-3 min-w-0">
+            {!loading && books.length > 0 && (
+              <div className="flex flex-col items-end text-sm text-gray-900 dark:text-white leading-snug">
+                <span className="whitespace-nowrap">{stats.totalBooks} {stats.totalBooks === 1 ? "book" : "books"} over {stats.totalYears} {stats.totalYears === 1 ? "year" : "years"}</span>
+                {stats.totalPages > 0 && <span className="whitespace-nowrap">{stats.totalPages.toLocaleString()} pages</span>}
+              </div>
+            )}
             <button
               onClick={onToggleDark}
               aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}

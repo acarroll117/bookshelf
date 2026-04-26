@@ -3,9 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 
-from database import get_db
-from models import Book
+from database import get_db, engine
+from models import Book, Base
 from schemas import BookCreate, BookUpdate, BookOut
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Bookshelf API")
 

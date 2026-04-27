@@ -1,5 +1,5 @@
 install:
-	python -m venv backend/.venv
+	python3 -m venv backend/.venv
 	cd backend && source .venv/bin/activate && pip install -r requirements.txt
 	cd frontend && npm install
 

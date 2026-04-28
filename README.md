@@ -4,17 +4,25 @@ A personal reading tracker built to replace a long-running notes file of books a
 
 ## Screenshots
 
-<figure>
-  <img src="assets/screenshots/book-list.png" width="45%" />
-  <img src="assets/screenshots/add-book.png" width="45%" />
-  <figcaption><em>Data for illustration purposes only.</em></figcaption>
-</figure>
+<table>
+  <tr>
+    <td><img src="assets/screenshots/book-list.png" /></td>
+    <td><img src="assets/screenshots/add-book.png" /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><em>Data for illustration purposes only.</em></td>
+  </tr>
+</table>
 
-## How It Evolved
+## Progression
 
-<img src="assets/screenshots/v1.png" width="32%" />
-<img src="assets/screenshots/v2.png" width="32%" />
-<img src="assets/screenshots/v3.png" width="32%" />
+<table>
+  <tr>
+    <td><img src="assets/screenshots/v1.png" /></td>
+    <td><img src="assets/screenshots/v2.png" /></td>
+    <td><img src="assets/screenshots/v3.png" /></td>
+  </tr>
+</table>
 
 ## Features
 

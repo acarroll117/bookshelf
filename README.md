@@ -38,8 +38,9 @@ A personal reading tracker built to replace a long-running notes file of books a
 
 | Layer    | Technology |
 |----------|------------|
-| Frontend | React, TypeScript, Tailwind CSS |
-| Backend  | FastAPI, PostgreSQL |
+| Frontend | React (TypeScript), Tailwind CSS |
+| Backend  | FastAPI (Python) |
+| Database | PostgreSQL |
 
 ## Getting Started
 

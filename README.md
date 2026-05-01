@@ -26,50 +26,60 @@ A personal reading tracker built to replace a long-running notes file of books a
 
 ## Features
 
-- **Log every book you finish -** title, author, a full review and a personal rating
-- **Half-star ratings -** from 0.5 to 5.0, so you can actually distinguish a 3.5 from a 4
-- **OpenLibrary API integration -** start typing a title and book metadata (author, cover, page count) is fetched and filled in automatically
-- **Reading stats -** see your total books, years of reading, and pages read at a glance
-- **Organised by year -** with a sidebar that lets you jump straight to any year in your history
-- **Reviews that don't crowd the card -** long reviews collapse gracefully and expand on click
-- **Dark mode -** of course
+- **Log every book you finish:** title, author, a full review and a personal rating
+- **Half-star ratings:** from 0.5 to 5.0, so you can actually distinguish a 3.5 from a 4
+- **OpenLibrary API integration:** start typing a title and book metadata (author, cover, page count) is fetched and filled in automatically
+- **Reading stats:** see your total books, years of reading, and pages read at a glance
+- **Organised by year:** with a sidebar that lets you jump straight to any year in your history
+- **Reviews that don't crowd the card:** long reviews collapse gracefully and expand on click
+- **Dark mode:** of course
 
 ## Tech Stack
 
-| Layer    | Technology |
-|----------|------------|
-| Frontend | React (TypeScript), Tailwind CSS |
-| Backend  | FastAPI (Python) |
-| Database | PostgreSQL |
+| Layer    | Technology                        |
+|----------|-----------------------------------|
+| Frontend | React (TypeScript), Tailwind CSS  |
+| Backend  | FastAPI (Python)                  |
+| Database | PostgreSQL                        |
+| Testing  | Playwright (TypeScript)           |
 
 ## Getting Started
 
-**Prerequisites:** Python 3, Node.js 18+, PostgreSQL
+**Prerequisites:** Python 3, Node.js 18+, PostgreSQL running locally
 
-1. Install dependencies:
+1. Install dependencies and create the dev database:
    ```bash
-   make install
+   make init
    ```
 
-2. Copy the example env file and fill in your database connection:
-   ```bash
-   cp backend/.env.example backend/.env
-   ```
-
-3. Start both servers in separate terminals:
+2. Start both servers in separate terminals:
    ```bash
    make dev-backend   # API on :8000
    make dev-frontend  # UI on :5173
    ```
 
-4. Open **http://localhost:5173** and start adding books to your library!
+3. Open **http://localhost:5173** and start adding books!
 
-Database tables are created automatically on first backend startup. Once the backend is running, interactive API docs are available at `http://localhost:8000/docs`.
+Database tables are created automatically on first backend startup. Interactive API docs are available at `http://localhost:8000/docs`.
+
+If your local Postgres uses a non-default user or password, edit `backend/.env` before starting the backend.
+
+## Testing
+
+Set up the test database and install Playwright (first time only):
+```bash
+make install-tests
+```
+
+Then run the tests:
+```bash
+make test       # All tests
+make test-api   # API tests only
+make test-ui    # UI tests only
+```
+
+Tests run against a separate `bookshelf_test` database on dedicated ports (:8001 for the backend, :5174 for the frontend), so they are safe to run alongside a live dev environment.
 
 ## Development
 
-| Command             | Description |
-|---------------------|-------------|
-| `make install`      | Create virtualenv and install all dependencies |
-| `make dev-backend`  | Start FastAPI with hot reload |
-| `make dev-frontend` | Start Vite dev server |
+Run `make help` for a full list of available commands.

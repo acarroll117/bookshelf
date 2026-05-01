@@ -1,6 +1,7 @@
 # env
 .env
 backend/.env
+tests/.env.test
 
 # Python
 __pycache__/
@@ -16,5 +17,8 @@ frontend/dist/
 # macOS
 .DS_Store
 
-design/
-docs/
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+.playwright/

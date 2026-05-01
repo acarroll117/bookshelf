@@ -75,6 +75,7 @@ export default function StarRating({
   return (
     <div
       className="flex items-center gap-0.5"
+      data-testid="star-rating"
       onMouseLeave={() => isInteractive && setHoverValue(null)}
     >
       {STARS.map((n) => {

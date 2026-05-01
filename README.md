@@ -1,4 +1,4 @@
-# 📚 Bookshelf
+# 📚 Bookshelf [![CI](https://github.com/acarroll117/bookshelf/actions/workflows/ci.yml/badge.svg)](https://github.com/acarroll117/bookshelf/actions/workflows/ci.yml)
 
 A personal reading tracker built to replace a long-running notes file of books and reviews. The project started as a way to explore full-stack development, AI-assisted development workflows, and how modern tooling could be applied to something I actually use. The longer goal is an augmented bookshelf: AI-driven reading insights, pattern analysis across your reviews, and eventually a visual shelf of every book you have read whether it be e-book or physical.
 

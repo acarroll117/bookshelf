@@ -80,6 +80,8 @@ make test-ui    # UI tests only
 
 Tests run against a separate `bookshelf_test` database on dedicated ports (:8001 for the backend, :5174 for the frontend), so they are safe to run alongside a live dev environment.
 
+The UI suite includes automated accessibility checks using [axe-core](https://github.com/dequelabs/axe-core) against the WCAG 2.1 AA standard. Pages are checked in both light and dark mode.
+
 ## Development
 
 Run `make help` for a full list of available commands.

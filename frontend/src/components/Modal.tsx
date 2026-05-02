@@ -44,6 +44,8 @@ export default function Modal({ onClose, maxWidth = "max-w-md", children }: Prop
         }`}
       >
         <div
+          role="dialog"
+          aria-modal="true"
           className={`w-full ${maxWidth} transition-all duration-200 ${
             visible
               ? "opacity-100 scale-100 translate-y-0"

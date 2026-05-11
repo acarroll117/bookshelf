@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -34,7 +36,7 @@ def create_book(payload: BookCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/books/{book_id}", response_model=BookOut)
-def get_book(book_id: str, db: Session = Depends(get_db)):
+def get_book(book_id: uuid.UUID, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == book_id).first()
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -42,7 +44,7 @@ def get_book(book_id: str, db: Session = Depends(get_db)):
 
 
 @app.put("/books/{book_id}", response_model=BookOut)
-def update_book(book_id: str, payload: BookUpdate, db: Session = Depends(get_db)):
+def update_book(book_id: uuid.UUID, payload: BookUpdate, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == book_id).first()
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -54,7 +56,7 @@ def update_book(book_id: str, payload: BookUpdate, db: Session = Depends(get_db)
 
 
 @app.delete("/books/{book_id}", status_code=204)
-def delete_book(book_id: str, db: Session = Depends(get_db)):
+def delete_book(book_id: uuid.UUID, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == book_id).first()
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")

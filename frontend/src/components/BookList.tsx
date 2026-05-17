@@ -149,10 +149,20 @@ export default function BookList({ books, loading, onAdd, onEdit, onDelete, dark
       {/* Content */}
       <main className="mx-auto w-full max-w-4xl px-4 py-8">
         {loading ? (
-          <div className="space-y-4">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
+          <div className="flex gap-4">
+            <div className="hidden md:flex flex-col w-20 shrink-0 gap-0.5 animate-pulse">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="px-2 py-1.5">
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-14 mb-1" />
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-10" />
+                </div>
+              ))}
+            </div>
+            <div className="flex-1 space-y-4">
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
           </div>
         ) : books.length === 0 ? (
           <EmptyState />

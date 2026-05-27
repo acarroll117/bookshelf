@@ -33,13 +33,13 @@ export class BookListPage {
     await expect(this.page.getByText(title).first()).toBeVisible();
   }
 
-  async deleteBook(title: string): Promise<void> {
-    // Scope the click to the specific book card so we hit the right delete button
-    // when multiple books are in the list.
+  async clickDeleteBook(title: string): Promise<void> {
     const card = this.page.locator('.rounded-xl').filter({ hasText: title });
-    // The trash icon button has aria-label="Delete" (BookCard.tsx).
     await card.getByLabel('Delete').click();
-    // Clicking the trash icon opens the ConfirmModal — confirm it now.
+  }
+
+  async deleteBook(title: string): Promise<void> {
+    await this.clickDeleteBook(title);
     const confirm = new ConfirmModal(this.page);
     await confirm.confirm();
   }

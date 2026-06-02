@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { BookListPage } from './pages/BookListPage';
-import { BookFormModal } from './pages/BookFormModal';
+import { API_BASE } from '../playwright.config';
 
 const a11y = (page: Page) =>
   new AxeBuilder({ page })
@@ -31,7 +31,7 @@ for (const scheme of ['light', 'dark'] as const) {
     });
 
     test('main page – with a book', async ({ page, request }) => {
-      const res = await request.post('http://localhost:8001/books', { data: SEED });
+      const res = await request.post(`${API_BASE}/books`, { data: SEED });
       const { id } = await res.json();
       try {
         const bookList = new BookListPage(page);
@@ -40,7 +40,7 @@ for (const scheme of ['light', 'dark'] as const) {
         const { violations } = await a11y(page);
         expect(violations).toEqual([]);
       } finally {
-        await request.delete(`http://localhost:8001/books/${id}`);
+        await request.delete(`${API_BASE}/books/${id}`);
       }
     });
 
@@ -56,7 +56,7 @@ for (const scheme of ['light', 'dark'] as const) {
     });
 
     test('delete-confirmation modal', async ({ page, request }) => {
-      const res = await request.post('http://localhost:8001/books', { data: SEED });
+      const res = await request.post(`${API_BASE}/books`, { data: SEED });
       const { id } = await res.json();
       try {
         const bookList = new BookListPage(page);
@@ -68,7 +68,7 @@ for (const scheme of ['light', 'dark'] as const) {
         const { violations } = await a11yModal(page);
         expect(violations).toEqual([]);
       } finally {
-        await request.delete(`http://localhost:8001/books/${id}`);
+        await request.delete(`${API_BASE}/books/${id}`);
       }
     });
   });

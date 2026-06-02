@@ -6,6 +6,8 @@ import * as path from 'path';
 // This means process.env.DATABASE_URL is available below.
 dotenv.config({ path: path.join(__dirname, '.env.test') });
 
+export const API_BASE = 'http://localhost:8001';
+
 export default defineConfig({
   testDir: '.',
   // Run tests sequentially to avoid parallel writes to the same test database.
@@ -20,7 +22,7 @@ export default defineConfig({
       name: 'api',
       testMatch: 'api/**/*.spec.ts',
       use: {
-        baseURL: 'http://localhost:8001',
+        baseURL: API_BASE,
       },
     },
     {

@@ -20,6 +20,10 @@ export class BookFormModal {
     await this.form.getByPlaceholder('e.g. J.R.R. Tolkien').fill(author);
   }
 
+  async fillReview(review: string): Promise<void> {
+    await this.form.getByPlaceholder('Your thoughts on the book…').fill(review);
+  }
+
   async setRating(stars: number): Promise<void> {
     // StarRating renders 5 star groups, each a <span> inside the container
     // marked with data-testid="star-rating". Each group has two invisible
